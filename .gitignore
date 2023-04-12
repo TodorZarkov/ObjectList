@@ -409,3 +409,4 @@ Config.cs
 DbConfig.cs
 Configuration.cs
 appsettings.json
+*.config.*

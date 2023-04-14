@@ -3,7 +3,7 @@ const domain = "http://localhost:3030";
 //depends on user stringified  object in session storage and user.accessToken!!!
 
 async function request(method, uri, data) {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     let requestObj = {
         method,
         headers: { "content-type": "application/json" }
@@ -16,7 +16,7 @@ async function request(method, uri, data) {
     if (user) {
         requestObj.headers["X-Authorization"] = user.accessToken;
     }
-
+    console.log('from server api before fetch: ', user);
     try {
         let responce = await fetch(domain + uri, requestObj);
 
@@ -26,7 +26,7 @@ async function request(method, uri, data) {
 
         if (!responce.ok) {
             if(responce.status === 403) {
-                sessionStorage.removeItem("user");
+                localStorage.removeItem("user");
             }
             const err = await responce.json();
             throw new Error(err.message);

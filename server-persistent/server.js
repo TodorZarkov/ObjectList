@@ -857,8 +857,11 @@
                 collectionsObj[collectionName] = {};
                 for (const collectionPair of collectionMap) {
                     const [id, content] = collectionPair;
-    
-                    collectionsObj[collectionName][id] = content
+                    if(collectionName === 'sessions'){
+                        collectionsObj[collectionName] = {};
+                    }else{
+                        collectionsObj[collectionName][id] = content
+                    }
                 }
             }
     

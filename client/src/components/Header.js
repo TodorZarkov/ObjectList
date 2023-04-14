@@ -1,13 +1,16 @@
+import { AuthContext, AuthProvider } from '../contexts/AuthContext'
 import Navigation from './Navigation'
+import { useContext } from 'react'
 
+export default function Header(
+    // {
+    // user,
+    // onLoginClick,
+    // onLogoutClick,
+    // }
+) {
 
-export default function Header({
-    user,
-    onLoginClick,
-    onLogoutClick,
-}) {
-
-
+    const {user, onLoginClick, onLogoutClick} = useContext(AuthContext)
 
     return (
         <header>

@@ -3,6 +3,8 @@ import Navigation from './Navigation'
 
 export default function Header({
     user,
+    onLoginClick,
+    onLogoutClick,
 }) {
 
 
@@ -20,12 +22,13 @@ export default function Header({
             {user
                 ?
                 <>
-                    <button className="button">
-                        <i class="fas fa-user-edit"></i>
-                        <p>You, {user.username}</p>
+                    <button className="button" >
+                        <i className="fas fa-user-edit"></i>
+                        <p>Edit</p>
                     </button>
-                    <button className="button">
-                        <i class="fas fa-sign-out-alt"></i>
+
+                    <button className="button" onClick={onLogoutClick}>
+                        <i className="fas fa-sign-out-alt"></i>
                         <p>Logout</p>
                     </button>
                 </>
@@ -33,15 +36,12 @@ export default function Header({
 
                 :
                 <>
-                    <button className="button">
+                    <button className="button" onClick={onLoginClick}>
                         <i className="fas fa-user"></i>
-                        <p>Login</p>
+                        <p>Login with Google</p>
                     </button>
 
-                    <button className="button">
-                        <i className="fas fa-user-plus"></i>
-                        <p>SignUp</p>
-                    </button>
+                    
                 </>
             }
 

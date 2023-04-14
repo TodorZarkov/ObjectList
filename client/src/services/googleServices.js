@@ -1,87 +1,23 @@
-
-
 import {gapi} from 'gapi-script';
-import {CLIENT_ID, SCOPES, API_KEY, DISCOVERY_DOC} from '../configurations/oauth.config'
 
-let tokenClient;
-let gapiInited = false;
-let gisInited = false;
+import {API_KEY, DISCOVERY_DOC} from '../configurations/oauth.config'
 
+gapiLoaded();
 
-/**
- * Callback after api.js is loaded.
- */
-export function gapiLoaded() {
+function gapiLoaded() {
     gapi.load('client', initializeGapiClient);
 }
 
-/**
-* Callback after Google Identity Services are loaded.
-*/
-export function gisLoaded() {
-    //LOAD CLIENT_ID FROM config.js
-    tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: CLIENT_ID,
-        scope: SCOPES,
-        callback: '', // defined later
-    });
-    gisInited = true;
-    maybeEnable();
-}
-
-/**
- * Callback after the API client is loaded. Loads the
- * discovery doc to initialize the API.
- */
 async function initializeGapiClient() {
-    //LOAD API_KEY FROM config.js
+    //load API_KEY and DISCOVERY_DOC from config.js
     await gapi.client.init({
         apiKey: API_KEY,
         discoveryDocs: [DISCOVERY_DOC],
     });
-    gapiInited = true;
-    maybeEnable();
-}
-
-/**
- * Enables user interaction after all libraries are loaded.
- */
-function maybeEnable() {
-    if (gapiInited && gisInited) {
-        //something upon success app credentials
-    }
 }
 
 
 
-
-
-
-export function authG() {
-    tokenClient.callback = async (resp) => {
-        if (resp.error !== undefined) {
-            throw (resp);
-        }
-        //something uopn auth
-    };
-
-    if (gapi.client.getToken() === null) {
-        // Prompt the user to select a Google Account and ask for consent to share their data
-        // when establishing a new session.
-        tokenClient.requestAccessToken({ prompt: 'consent' });
-    } else {
-        // Skip display of account chooser and consent dialog for an existing session.
-        tokenClient.requestAccessToken({ prompt: '' });
-    }
-}
-
-export function signoutG() {
-    const token = gapi.client.getToken();
-    if (token !== null) {
-        google.accounts.oauth2.revoke(token.access_token);
-        gapi.client.setToken('');
-    }
-}
 
 
 // operationals
@@ -93,7 +29,7 @@ export async function getGUserInfo() {
     return { displayName, photoLink, emailAddress };
 }
 
-function createPassword(
+export function createPassword(
     length = 20,
     list = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
 ) {
@@ -102,7 +38,7 @@ function createPassword(
         .join('')
 }
 
-async function addObjectToDrive(obj, folder = 'appDataFolder', name = 'credentials.txt') {
+export async function addObjectToDrive(obj, folder = 'appDataFolder', name = 'credentials') {
 
     const file = new Blob([JSON.stringify(obj)], { type: "text/plain" });
 
@@ -130,18 +66,16 @@ async function addObjectToDrive(obj, folder = 'appDataFolder', name = 'credentia
     );
 
     const value = await responce.json();
-    console.log(value);
     return value;
 }
 
-async function getObjectFromDrive(fileId) {
+export async function getObjectFromDrive(fileId) {
     try {
         const responce = await gapi.client.drive.files.get({
             fileId,
             alt: 'media',
         });
         const result = responce.result;
-        console.log(result)
         return result;
     } catch (error) {
         console.log('Object not found')
@@ -151,7 +85,7 @@ async function getObjectFromDrive(fileId) {
 
 }
 
-async function createFolder(name = 'ObjectList', parents = ['root']) {
+async function createFolderOnDrive(name = 'ObjectList', parents = ['root']) {
     const access_token = gapi.auth.getToken().access_token;
     const request = gapi.client.request({
         'path': 'drive/v3/files',
@@ -169,7 +103,7 @@ async function createFolder(name = 'ObjectList', parents = ['root']) {
     const responce = await request.execute();
 }
 
-async function getFilesMetaFromName(name = 'credentials', spaces = 'appDataFolder') {
+export async function getFilesMetaFromNameOnDrive(name = 'credentials', spaces = 'appDataFolder') {
     const responce = await gapi.client.drive.files.list({
         'q': `name = "${name}"`,
         spaces //spaces :drive, appDataFolder, someId?
@@ -177,17 +111,10 @@ async function getFilesMetaFromName(name = 'credentials', spaces = 'appDataFolde
     //handle responce error
 
     const result = responce.result;
-    const files = responce.result.files;
-    if (files && files.length > 0) {
-        console.log(files)
-    } else {
-        // if folder not available
-        console.log(`File/Folder not found`);
-    }
-    return files;
+    return result.files;
 }
 
-async function deleteFile(fileId) {
+export async function deleteFileFromDrive(fileId) {
     const request = gapi.client.drive.files.delete({
         fileId
     });

@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 
 import Home from './Home';
-import CategoryList from './CategoryList';
-import ObjectList from './ObjectList';
+import Lists from './Lists';
+import Objects from './Objects';
 import Proposals from './Proposals';
 
 export default function Main() {
@@ -11,8 +11,8 @@ export default function Main() {
             <Routes>
                 <Route path='*' element={<h2>Page Not Found</h2>} />
                 <Route path='/' element={<Home />} />
-                <Route path='/categories' element={<CategoryList />} />
-                <Route path='/objects' element={<ObjectList />} />
+                <Route path='/lists' element={<Lists />} />
+                <Route path='/objects' element={<Objects />} />
                 <Route path='/proposals' element={<Proposals />} />
             </Routes>
         </main>

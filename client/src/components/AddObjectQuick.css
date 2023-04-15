@@ -1,0 +1,32 @@
+.quick-add-card {
+    border-radius: 5px;
+    overflow: hidden;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    row-gap: 5px;
+}
+
+.quick-add-card video {
+    transform: rotateY(0deg);
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* .quick-add-card img {
+    transform: rotateY(0deg);
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+} */
+
+.quick-add-card .button {
+    width: 100%;
+}
+
+.quick-add-card .create  {
+    padding: 10px 10px;
+}
+

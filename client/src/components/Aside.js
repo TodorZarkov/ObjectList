@@ -1,6 +1,10 @@
-export default function Aside({
-    user,
-}) {
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+
+export default function Aside({  }) {
+
+    const user = useContext(AuthContext);
+
     return (
         <aside>
             {user &&

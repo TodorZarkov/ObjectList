@@ -8,7 +8,7 @@ export default function Navigation({
             <ul role='list'>
                 <li><Link to='/'>Home</Link></li>
                 <li><Link to='/objects'>Objects</Link></li>
-                <li><Link to='/categories'>Collections</Link></li>
+                <li><Link to='/lists'>Lists</Link></li>
                 {user &&
                 <li><Link to='/proposals'>Proposals</Link></li>}
             </ul>

@@ -105,3 +105,31 @@ export async function createObject(listId, data) {
     const result = await api.post(endpoint.objects,theObject)
     return result._id;
 }
+
+export async function updateList(listId, data) {
+    const list = await api.get(endpoint.lists + '/' + listId);
+    const updatedList = ({...list, ...data});
+    const result = await api.put(endpoint.lists + '/' + listId, updatedList);
+    return result;
+}
+
+export async function deleteList(listId) {
+    api.del(endpoint.lists + '/' + listId);
+}
+
+export async function getAllLists(...includedKeys) {
+    const lists = await api.get(endpoint.lists);
+    if(includedKeys.length === 0 ) return lists;
+
+    const filteredLists = lists.map(lObj => {
+        const obj = {};
+        for (const key of includedKeys) {
+            if (lObj.hasOwnProperty(key)) {
+                obj[key] = lObj[key];
+            }
+        }
+        return obj;
+    });
+
+    return filteredLists;
+}

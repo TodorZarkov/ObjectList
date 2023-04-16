@@ -4,7 +4,7 @@ import Home from './Home';
 import Lists from './Lists';
 import Objects from './Objects';
 import Proposals from './Proposals';
-import AddObjectQuick from './AddObjectQuick';
+import AddListQuick from './AddListQuick';
 
 export default function Main() {
     return (
@@ -13,7 +13,7 @@ export default function Main() {
                 <Route path='*' element={<h2>Page Not Found</h2>} />
                 <Route path='/' element={<Home />} />
                 <Route path='/lists' element={<Lists />} />
-                <Route path='/lists/quick-add/:listId' element={<AddObjectQuick />} />
+                <Route path='/lists/quick-add/:listId' element={<AddListQuick />} />
                 <Route path='/objects' element={<Objects />} />
                 <Route path='/proposals' element={<Proposals />} />
             </Routes>

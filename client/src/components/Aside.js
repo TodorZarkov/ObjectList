@@ -1,10 +1,22 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import {NavLink } from "react-router-dom";
+import { getAllLists } from "../services/factory";
 
-export default function Aside({  }) {
+export default function Aside({ }) {
 
-    const user = useContext(AuthContext);
+    const {user} = useContext(AuthContext);
 
+    useEffect(() => {
+        getAllLists('name', '_id').then(l=>console.log(l));
+    },[])
+
+
+    
+
+    const navStyle = ({isActive}) => ({
+        color: isActive ? 'red' : '#3e3e3e'
+    })
     return (
         <aside>
             {user &&
@@ -12,7 +24,9 @@ export default function Aside({  }) {
                     <h4>My Collections</h4>
                     <nav>
                         <ul role='list'>
-                            <li>User Collection</li>
+                            <NavLink style={navStyle} to={'/lists'}>
+                                <li>User Collection</li>
+                            </NavLink>
                             <li>User Collection</li>
                             <li>User Collection</li>
                             <li>User Collection</li>

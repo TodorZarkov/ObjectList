@@ -4,13 +4,13 @@
     position: absolute;
     display: flex;
     flex-wrap: wrap;
-    width: 400px;
+    width: 320px;
+
     row-gap: 5px;
 }
 
-.quick-add-card video {
-    transform: rotateY(0deg);
-    width: 100%;
+.quick-add-card .react-html5-camera-photo video {
+    width:  100%;
     border-radius: 5px;
     overflow: hidden;
 }

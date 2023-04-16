@@ -1,16 +1,22 @@
-import {Link} from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 
 export default function Navigation({
     user,
 }) {
+    const navStyle = ({isActive}) => ({
+        color: isActive ? 'red' : '#3e3e3e'
+    })
     return (
         <nav>
             <ul role='list'>
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/objects'>Objects</Link></li>
-                <li><Link to='/lists'>Lists</Link></li>
+                <li><NavLink style={navStyle} to='/'>Home</NavLink></li>
+
+                <li><NavLink style={navStyle} to='/objects'>Objects</NavLink></li>
+
+                <li><NavLink style={navStyle} to='/lists'>Lists</NavLink></li>
+
                 {user &&
-                <li><Link to='/proposals'>Proposals</Link></li>}
+                <li><NavLink style={navStyle} to='/proposals'>Proposals</NavLink></li>}
             </ul>
         </nav>
     );

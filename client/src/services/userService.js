@@ -2,7 +2,8 @@ import * as api from "./serverApi.js";
 
 import { googleLogout} from '@react-oauth/google';
 
-import { getGUserInfo, getFilesMetaFromNameOnDrive, addObjectToDrive, createPassword, getObjectFromDrive, deleteFileFromDrive} from './googleServices.js';
+import { getGUserInfo, getFilesMetaFromNameOnDrive, addObjectToDrive, getObjectFromDrive, deleteFileFromDrive, createFolderOnDrive} from './googleServices.js';
+import {createPassword} from '../services/util.js'
 
 
 
@@ -47,16 +48,22 @@ export async function loginOrRegisterWithGoogle(hasGrantedAll) {
 
     let filesMeta = await getFilesMetaFromNameOnDrive();
 
+    //todo: CHECK IF APP FOLDER STILL EXISTS ...
     if (filesMeta.length === 0 || filesMeta.length > 1) {
         if (filesMeta.length > 1) {
             for (const fileMeta of filesMeta) {
                 await deleteFileFromDrive(fileMeta.id);
             }
         }
-
+        const appDirectoryId = await createFolderOnDrive();
         const email = guserInfo.emailAddress;
         const password = createPassword();
-        const responce = await addObjectToDrive({ email, password });
+
+        const responce = await addObjectToDrive({ 
+            email, 
+            password, 
+            appDirectoryId 
+        });
         console.log(`created credentials on drive: `, responce);
         filesMeta = await getFilesMetaFromNameOnDrive();
     }
@@ -68,13 +75,13 @@ export async function loginOrRegisterWithGoogle(hasGrantedAll) {
         const user = await login(credentials.email, credentials.password);
         console.log('loged in', user);
 
-        return user;
+        return {...user, appDirectoryId: credentials.appDirectoryId};
     } catch (e) {
         console.log('error logging: ', e.message);
         const user = await register(credentials.email, credentials.password)
 
         console.log('registered', user);
 
-        return user;
+        return {...user, appDirectoryId: credentials.appDirectoryId};
     }
 }

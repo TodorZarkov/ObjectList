@@ -122,6 +122,7 @@ main {
     align-items: center;
     justify-content: center;
 
+    overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width:thin;
     scroll-behavior: smooth;

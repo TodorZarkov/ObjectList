@@ -40,4 +40,9 @@ export function dataURItoBlob(dataURI, dataTYPE) {
     array.push(binary.charCodeAt(i));
     return new Blob([new Uint8Array(array)], {type: dataTYPE});
     
-}
+};
+
+
+export async function binaryToPng(binary) {
+    return ('data:image/png;base64,' + btoa(binary))
+  }

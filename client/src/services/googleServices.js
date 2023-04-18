@@ -2,7 +2,7 @@ import {gapi} from 'gapi-script';
 
 
 import {API_KEY, DISCOVERY_DOC} from '../configurations/oauth.config'
-import { dataURItoBlob } from './util';
+import { binaryToPng, dataURItoBlob } from './util';
 
 gapiLoaded();
 
@@ -146,5 +146,21 @@ export async function deleteFileFromDrive(fileId) {
     });
     const responce = await request.execute();
     console.log(responce);
+}
+
+export async function getPictureFromDrive(fileId) {
+    try {
+        const responce = await gapi.client.drive.files.get({
+            fileId,
+            alt: 'media',
+        });
+        const result = responce.body;
+        return binaryToPng(result);
+    } catch (error) {
+        console.log('Object not found: ', error)
+        return null;
+    }
+
+
 }
 

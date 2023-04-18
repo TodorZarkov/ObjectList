@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 import { onLogout, loginOrRegisterWithGoogle} from '../services/userService'
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -36,10 +36,14 @@ export const AuthProvider = ({
         setUser(null);
     }
 
+    const [listUpdate, setListUpdate] = useState(true);
+    const toggleListUpdate = {listUpdate, setListUpdate};
+
     const contextValues = {
         onLoginClick,
         onLogoutClick,
-        user
+        user,
+        toggleListUpdate,
     }
 
 

@@ -17,6 +17,7 @@ export default function AddListQuick() {
             const objectIds = state.objectIds;
             if (state && objectIds.length > 0) {
                 updateList(listId, { objectIds });
+                toggleListUpdate.setListUpdate(state=>!state);
             }else if(state.photos.length===0){
                 deleteList(listId);
             }
@@ -27,7 +28,7 @@ export default function AddListQuick() {
 
     const navigate = useNavigate();
     const { listId } = useParams();
-    const { user } = useContext(AuthContext)
+    const { user, toggleListUpdate } = useContext(AuthContext)
     const [state, setState] = useState({
         photosCount: 0,
         photos: [],
@@ -90,6 +91,7 @@ export default function AddListQuick() {
         const objectIds = state.objectIds;
         if (objectIds.length > 0) {
             await updateList(listId, { objectIds });
+            toggleListUpdate.setListUpdate(state=>!state);
         }
         
         resetState();
@@ -101,7 +103,8 @@ export default function AddListQuick() {
         if (objectIds.length === 0) {
             //deleteList(listId); will delete on unmount
             resetState();
-            navigate('./../../');
+            navigate('/');
+            return;
         }
 
         onCreateListClick();

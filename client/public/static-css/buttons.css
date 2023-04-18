@@ -1,4 +1,6 @@
 .button {
+    z-index: 2;
+    background-color: #fafafa;
     display: flex;
     justify-content: center;
     align-items: center;

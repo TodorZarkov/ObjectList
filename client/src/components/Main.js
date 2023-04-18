@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import Home from './Home';
-import Lists from './Lists';
+import Lists from './Lists/Lists';
 import Objects from './Objects';
 import Proposals from './Proposals';
 import AddListQuick from './AddListQuick';

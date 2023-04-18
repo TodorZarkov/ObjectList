@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import './RemoveList.css'
 import {AuthContext} from '../../contexts/AuthContext'
-import { getList, getObject } from '../../services/factory';
+import { deleteList, deleteObject, getList, getObject } from '../../services/factory';
+import { deleteFileFromDrive } from '../../services/googleServices';
 
 export default function RemoveList({
     listId,
@@ -10,10 +11,21 @@ export default function RemoveList({
 
     async function onRemoveClick() {
         const listInfo = await getList(listId, 'objectIds');
+        console.log(listInfo);
         const pictureIds = [];
         for (const objId of listInfo.objectIds) {
-            const objectInfo = await getObject(objId, '')
+            const objectInfo = await getObject(objId, 'pictureIds');
+            pictureIds.push(objectInfo.pictureIds);
+        };
+
+        for (const pictureId of pictureIds) {
+            await deleteFileFromDrive(pictureId);
         }
+        for (const objectId of listInfo.objectIds) {
+            await deleteObject(objectId);
+        }
+        await deleteList(listId)
+        toggleListUpdate.setListUpdate(state=>!state);
     }
 
 

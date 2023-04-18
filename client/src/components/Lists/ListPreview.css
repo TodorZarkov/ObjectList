@@ -1,0 +1,29 @@
+.list-preview {
+    display: block;
+    width: 100%;
+    margin: 10px 0 0px 10px;
+    align-items: start;
+    justify-content: start;
+    /* border: 1px solid black; */
+}
+ 
+.list-preview h4 {
+    display: flex;
+    justify-content: space-between;
+    position:relative;
+    top: 0px;
+    left: 0px;
+}
+
+.list-pictures-container {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width:none;
+    scroll-behavior: smooth;
+}
+
+.list-pictures-container img {
+    height: 150px;
+    border: 1px solid black;
+    border-right: 0px;
+}

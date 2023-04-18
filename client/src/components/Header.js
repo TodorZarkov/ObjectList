@@ -1,4 +1,4 @@
-import { AuthContext, AuthProvider } from '../contexts/AuthContext'
+import { AuthContext} from '../contexts/AuthContext'
 import Navigation from './Navigation'
 import { useContext } from 'react'
 
@@ -27,7 +27,7 @@ export default function Header(
                 <>
                     <button className="button" >
                         <i className="fas fa-user-edit"></i>
-                        <p>Edit</p>
+                        <p>{user.email}</p>
                     </button>
 
                     <button className="button" onClick={onLogoutClick}>

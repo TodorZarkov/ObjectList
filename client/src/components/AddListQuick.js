@@ -91,8 +91,8 @@ export default function AddListQuick() {
         const objectIds = state.objectIds;
         if (objectIds.length > 0) {
             await updateList(listId, { objectIds });
-            toggleListUpdate.setListUpdate(state=>!state);
         }
+        toggleListUpdate.setListUpdate(state=>!state);
         
         resetState();
         navigate(`/lists/${listId}`);

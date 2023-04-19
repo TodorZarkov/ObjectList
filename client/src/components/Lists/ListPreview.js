@@ -34,7 +34,7 @@ export default function ListPreview({
                     <RemoveList listId={listInfo._id} />
                 </h4>
                 <div className="list-pictures-container">
-                {photos.map(p => <img src={p} alt="" />)}
+                {photos.map((p,i) => <img src={p} alt={i} />)}
                 </div>
             </article>
 

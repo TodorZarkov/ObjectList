@@ -5,6 +5,7 @@ import Lists from './Lists/Lists';
 import Objects from './Objects';
 import Proposals from './Proposals';
 import AddListQuick from './AddListQuick';
+import AddList from './Lists/AddList';
 
 export default function Main() {
     return (
@@ -14,6 +15,7 @@ export default function Main() {
                 <Route path='/' element={<Home />} />
                 <Route path='/lists' element={<Lists />} />
                 <Route path='/lists/quick-add/:listId' element={<AddListQuick />} />
+                <Route path='/lists/add/:listId' element={<AddList />} />
                 <Route path='/objects' element={<Objects />} />
                 <Route path='/proposals' element={<Proposals />} />
             </Routes>

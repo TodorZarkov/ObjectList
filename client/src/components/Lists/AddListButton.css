@@ -1,0 +1,11 @@
+div.add-list-btn-container{
+    background-color: #fafafa;
+    display: block;
+    width: 100%;
+    padding: 10px 0px 10px 50px;
+    align-items: start;
+    justify-content: start;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}

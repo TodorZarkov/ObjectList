@@ -1,4 +1,4 @@
-import AddList from "./AddList";
+import AddListButton from "./AddListButton";
 import ListPreview from "./ListPreview";
 import {useContext, useEffect, useState} from "react"
 import {AuthContext} from '../../contexts/AuthContext'
@@ -15,13 +15,12 @@ export default function Lists() {
         .then(list=> setListsInfo(list));
     },[user, toggleListUpdate.listUpdate]);
     
-    console.log('Lists', listsInfo);
     
 
     return (
         <div className="list-content-wrapper">
             {user &&
-            <AddList />}
+            <AddListButton />}
             {listsInfo.map(listInfo => <ListPreview key={listInfo._id} listInfo={listInfo} />)}
         </div>
     );

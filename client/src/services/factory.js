@@ -40,6 +40,7 @@ const defaultObject = {
     pictureIds: [],
     documentIds: [],
     name: "",
+    quontity: 1,
     privacyLevel: "listSet",
     description: {
         privacyLevel: "users",

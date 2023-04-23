@@ -55,6 +55,7 @@ export async function loginOrRegisterWithGoogle(hasGrantedAll) {
                 await deleteFileFromDrive(fileMeta.id);
             }
         }
+        //return;
         const appDirectoryId = await createFolderOnDrive();
         const email = guserInfo.emailAddress;
         const password = createPassword();

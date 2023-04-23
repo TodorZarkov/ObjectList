@@ -12,23 +12,25 @@ import Spinner from './Spinner';
 
 export default function AddListQuick() {
 
-    useEffect(()=>{
-        return () => {
-            const objectIds = state.objectIds;
-            if (state && objectIds.length > 0) {
-                updateList(listId, { objectIds });
-                toggleListUpdate.setListUpdate(state=>!state);
-            }else if(state.photos.length===0){
-                deleteList(listId);
-            }
-            resetState();
-        };
+    // useEffect(()=>{
+    //     return () => {
+    //         const objectIds = state.objectIds;
+    //         if (state && objectIds.length > 0) {
+    //             updateList(listId, { objectIds });
+    //             toggleListUpdate.setListUpdate(state=>!state);
+    //         }else if(state.photos.length===0){
+    //             deleteList(listId);
+    //         }
+    //         resetState();
+    //     };
         
-    },[])
+    // },[])
 
     const navigate = useNavigate();
     const { listId } = useParams();
     const { user, toggleListUpdate } = useContext(AuthContext)
+
+    
     const [state, setState] = useState({
         photosCount: 0,
         photos: [],

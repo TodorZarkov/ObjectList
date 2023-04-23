@@ -30,6 +30,8 @@ export default function RemoveList({
 
 
     return (
-        <button className="button remove-list" onClick={onRemoveClick}>x</button>
+        <button className="button remove-list" onClick={onRemoveClick}>
+            <i class="fas fa-trash-alt"></i>
+        </button>
     );
 };

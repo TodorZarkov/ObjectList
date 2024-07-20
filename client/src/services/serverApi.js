@@ -18,21 +18,21 @@ async function request(method, uri, data) {
     }
     console.log('from server api before fetch: ', user);
     try {
-        let responce = await fetch(domain + uri, requestObj);
+        let response = await fetch(domain + uri, requestObj);
 
-        if (responce.status === 204) {
-            return responce;
+        if (response.status === 204) {
+            return response;
         }
 
-        if (!responce.ok) {
-            if(responce.status === 403) {
+        if (!response.ok) {
+            if(response.status === 403) {
                 localStorage.removeItem("user");
             }
-            const err = await responce.json();
+            const err = await response.json();
             throw new Error(err.message);
         }
 
-        let result = await responce.json();
+        let result = await response.json();
         return result;
 
     } catch (error) {
